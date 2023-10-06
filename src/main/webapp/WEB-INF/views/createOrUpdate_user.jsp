@@ -7,7 +7,7 @@
 </head>
 <body>
 <h2>Create new User</h2><br>
-<!--Вопрос ментору: Почему не срабатывают ошибки при некорректном вводе данных?>
+<!--Вопрос ментору: Почему не срабатывают ошибки при некорректном вводе данных?-->
 <form:form modelAttribute="user" action="/users/save">
     <form:hidden path="id"/>
     <h3>Name: </h3>

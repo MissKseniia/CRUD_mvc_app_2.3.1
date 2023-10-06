@@ -54,7 +54,7 @@ public class UsersController {
         return "createOrUpdate_user";
     }
 
-    @RequestMapping("/remove")
+    @GetMapping("/remove")
     public String removeUser(@RequestParam("userId") Long id) {
 
         userService.removeUser(id);
