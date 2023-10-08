@@ -21,19 +21,15 @@ public class UserDaoImpl implements UserDao {
         this.entityManager = managerFactory.createEntityManager();
     }
 
-    public EntityManager getEntityManager() {
-        return entityManager;
-    }
-
     @Transactional
     @Override
     public void addOrUpdateUser(User user) {
 
 
         if (user.getId() == null) {
-            getEntityManager().persist(user);
+            entityManager.persist(user);
         } else {
-            getEntityManager().merge(user);
+            entityManager.merge(user);
         }
 
     }
@@ -41,20 +37,20 @@ public class UserDaoImpl implements UserDao {
     @Transactional(readOnly = true)
     @Override
     public List<User> getAllUsers() {
-        return getEntityManager().createQuery("from User  ", User.class).getResultList();
+        return entityManager.createQuery("from User  ", User.class).getResultList();
     }
 
     @Transactional(readOnly = true)
     @Override
     public User getUserById(Long id) {
-        return getEntityManager().find(User.class, id);
+        return entityManager.find(User.class, id);
     }
 
     @Transactional
     @Override
     public void removeUser(Long id) {
 
-        User user = getEntityManager().merge(getUserById(id));
-        getEntityManager().remove(user);
+        User user = entityManager.merge(getUserById(id));
+        entityManager.remove(user);
     }
 }
