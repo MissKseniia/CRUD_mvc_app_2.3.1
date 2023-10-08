@@ -13,19 +13,16 @@ import java.util.List;
 @Repository
 public class UserDaoImpl implements UserDao {
 
-    private final EntityManagerFactory managerFactory;
-
-    public EntityManager getEntityManager() {
-        return entityManager;
-    }
-
     @PersistenceContext
     private EntityManager entityManager;
 
     @Autowired
     public UserDaoImpl(EntityManagerFactory managerFactory) {
-        this.managerFactory = managerFactory;
         this.entityManager = managerFactory.createEntityManager();
+    }
+
+    public EntityManager getEntityManager() {
+        return entityManager;
     }
 
     @Transactional
