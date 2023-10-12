@@ -27,7 +27,10 @@
             <td> ${user.age} </td>
             <td>
                 <input type="button" value="Update" onclick="window.location.href = '${updateButton}'"/>
-                <input type="button" value="Remove" onclick="window.location.href = '${removeButton}'"/>
+                <form>
+                    <input type="button" value="Remove" onclick="window.location.href = '${removeButton}'"/>
+                </form>
+
             </td>
         </tr>
     </c:forEach>

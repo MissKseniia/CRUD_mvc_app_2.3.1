@@ -1,13 +1,11 @@
 package springMVC.web.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import springMVC.web.entity.User;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import java.sql.SQLDataException;
 import java.util.List;
 
 @Repository
@@ -16,15 +14,8 @@ public class UserDaoImpl implements UserDao {
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Autowired
-    public UserDaoImpl(EntityManagerFactory managerFactory) {
-        this.entityManager = managerFactory.createEntityManager();
-    }
-
-    @Transactional
     @Override
     public void addOrUpdateUser(User user) {
-
 
         if (user.getId() == null) {
             entityManager.persist(user);
@@ -34,23 +25,24 @@ public class UserDaoImpl implements UserDao {
 
     }
 
-    @Transactional(readOnly = true)
     @Override
     public List<User> getAllUsers() {
         return entityManager.createQuery("from User  ", User.class).getResultList();
     }
 
-    @Transactional(readOnly = true)
     @Override
     public User getUserById(Long id) {
         return entityManager.find(User.class, id);
     }
 
-    @Transactional
     @Override
-    public void removeUser(Long id) {
+    public void removeUser(Long id) throws SQLDataException {
 
-        User user = entityManager.merge(getUserById(id));
+        User user = getUserById(id);
+        if (user == null) {
+            throw new SQLDataException("User not found");
+        }
+
         entityManager.remove(user);
     }
 }

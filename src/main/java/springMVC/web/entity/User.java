@@ -1,13 +1,16 @@
 package springMVC.web.entity;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
 
 @Entity
 @Table(name = "users")
@@ -21,8 +24,8 @@ public class User {
     private String firstname;
     @NotBlank(message = "Invalid argument for lastname")
     private String lastname;
-    @NotBlank
-    @Size(max = 100, message = "Invalid argument for age")
+    @NotNull(message = "Invalid argument for age")
+    @Range(min = 1, max = 100, message = "Invalid argument for age")
     private Byte age;
 
     public User() {

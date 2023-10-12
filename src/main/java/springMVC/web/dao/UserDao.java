@@ -2,6 +2,7 @@ package springMVC.web.dao;
 
 import springMVC.web.entity.User;
 
+import java.sql.SQLDataException;
 import java.util.List;
 
 public interface UserDao {
@@ -12,5 +13,5 @@ public interface UserDao {
 
     User getUserById(Long id);
 
-    void removeUser(Long id);
+    void removeUser(Long id) throws SQLDataException;
 }
