@@ -46,9 +46,6 @@ public class UsersController {
         return "redirect:/users";
     }
 
-    /*Что касается метода update, то он лишь добавляет в модель существующего пользователя,
-    а сами изменения в бд вносит уже другой метод - saveUser. Он помечен аннотацией Post.
-    * */
     @GetMapping("/update")
     public String updateUser(@RequestParam("userId") Long id, ModelMap model) {
 
@@ -56,19 +53,13 @@ public class UsersController {
         return "createOrUpdate_user";
     }
 
-    /*Если я меняю в removeUser GetMapping -> PostMapping, он перестает работать.
-    Выходит следующая ошибка:
-    HTTP Status 405 – Method Not Allowed
-    Type: Status Report
-    Message: Request method 'GET' not supported
-    Description: The method received in the request-line is known
-    by the origin server but not supported by the target resource.
-    Возможно из-за того, что в параметре у меня запрашиватеся Id?
-    * */
-    @GetMapping("/remove")
-    public String removeUser(@RequestParam("userId") Long id) {
+    @PostMapping
+    public String removeUser(@RequestParam("userId") Long id,
+                             @RequestParam("action") String action) {
 
-        userService.removeUser(id);
+        if (action.equals("remove")) {
+            userService.removeUser(id);
+        }
         return "redirect:/users";
     }
 

@@ -18,8 +18,9 @@
         <c:url var="updateButton" value="users/update">
             <c:param name="userId" value="${user.id}"/>
         </c:url>
-        <c:url var="removeButton" value="users/remove">
+        <c:url var="removeButton" value="users">
             <c:param name="userId" value="${user.id}"/>
+            <c:param name="action" value="remove"/>
         </c:url>
         <tr>
             <td> ${user.firstname} </td>
@@ -27,8 +28,8 @@
             <td> ${user.age} </td>
             <td>
                 <input type="button" value="Update" onclick="window.location.href = '${updateButton}'"/>
-                <form>
-                    <input type="button" value="Remove" onclick="window.location.href = '${removeButton}'"/>
+                <form method="post">
+                    <input type="submit" value="Remove" onclick="window.location.href = '${removeButton}'"/>
                 </form>
 
             </td>
